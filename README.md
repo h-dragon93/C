@@ -2,10 +2,10 @@
 C language code making practicing
 
 // from 5 people, receive 3 each point, which is math, korean, englsih. then arrange it from lower score to higher score.
-if the point is over average, mark 'pass' next to it. other wise, mark 'fail' next to it.
+if the point is over average, mark 'pass' next to it. other wise, mark 'fail' next to it.//
+
 
 #include <stdio.h>
-
 int main()
 {
 	int math, korean, english;

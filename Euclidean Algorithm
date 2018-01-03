@@ -1,0 +1,32 @@
+// By using Euclidean Algorithm, Find Greates common divisor//
+
+#include <stdio.h>
+
+int main(void)
+{
+	int N;
+	int a, b;
+	int temp;
+
+	printf("enter two numbers \n");
+	printf("first : \n");
+	scanf("%d, \n", &a);
+	printf("second : \n");
+	scanf("%d", &b);
+
+	while (1)
+	{
+		temp = b;
+		b = a%b;
+		a = temp;
+		if (b == 0)
+		{
+			break;
+			return a;
+		}
+	}
+
+	printf("%d", a);
+
+	return 0;
+}

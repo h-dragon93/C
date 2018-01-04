@@ -1,0 +1,206 @@
+//this is a code about managing book borrowing and returning//
+
+#include <stdio.h>
+
+int add_book(char(*book_name)[30], char(*auth_name)[30], char(*publ_name)[30],
+	int *borrowed, int *num_total_book);
+int search_book(char(*book_name)[30], char(*auth_name)[30],
+	char(*publ_name)[30], int num_total_book);
+char compare(char *str1, char *str2);
+int borrow_book(int *borrowed);
+int return_book(int *borrowed);
+
+
+int main()
+{
+	int user_choice; /* the choice which you made */
+	int num_total_book = 0; 
+
+							/* the number of maximum books is 100*/
+	char book_name[100][30], auth_name[100][30], publ_name[100][30];
+	/* whether you borrowed or not*/
+	int borrowed[100];
+
+	while (1)
+	{
+		printf("book management program \n");
+		printf("choose the menu \n");
+		printf("1. add new book \n");
+		printf("2. search new book \n");
+		printf("3. borrow new book \n");
+		printf("4. return the book \n");
+		printf("5. finish the program \n");
+
+		printf("your choice : ");
+		scanf("%d", &user_choice);
+
+		if (user_choice == 1)
+		{
+			/* a function which adding new book */
+			add_book(book_name, auth_name, publ_name, borrowed, &num_total_book);
+		}
+		else if (user_choice == 2)
+		{
+			/* a function which searching new book */
+			search_book(book_name, auth_name, publ_name, num_total_book);
+		}
+		else if (user_choice == 3)
+		{
+			/* a function which borrowing new book */
+			borrow_book(borrowed);
+		}
+		else if (user_choice == 4)
+		{
+			/* a function which returning the book */
+			return_book(borrowed);
+		}
+		else if (user_choice == 5)
+		{
+			/* a function which turning down the program */
+			break;
+		}
+	}
+
+
+	return 0;
+}
+/* adding new book */
+int add_book(char(*book_name)[30], char(*auth_name)[30], char(*publ_name)[30],
+	int *borrowed, int *num_total_book)
+{
+	printf("title of added book : ");
+	scanf("%s", book_name[*num_total_book]);
+
+	printf("author of added book : ");
+	scanf("%s", auth_name[*num_total_book]);
+
+	printf("publisher of added book : ");
+	scanf("%s", publ_name[*num_total_book]);
+
+	borrowed[*num_total_book] = 0; /* not borrowed*/
+	printf("finish! \n");
+	(*num_total_book)++;
+
+	return 0;
+}
+/* searching a book */
+int search_book(char(*book_name)[30], char(*auth_name)[30],
+	char(*publ_name)[30], int num_total_book)
+{
+	int user_input; 
+	int i; // number of your book//
+	char user_search[30];
+
+	printf("choose what you want \n");
+	printf("1. search the title \n");
+	printf("2. search author \n");
+	printf("3. search publisher \n");
+	scanf("%d", &user_input);
+
+	printf("type what you want to find : ");
+	scanf("%s", user_search);
+
+	printf("result \n");
+
+	if (user_input == 1)
+	{
+		/*
+		'i' is comparing the array from 0 to 'i'
+		*/
+		for (i = 0; i < num_total_book; i++)
+		{
+			if (compare(book_name[i], user_search))
+			{
+				printf("number : %d // title : %s // author : %s // publisher : %s \n",
+					i, book_name[i], auth_name[i], publ_name[i]);
+			}
+		}
+
+	}
+	else if (user_input == 2)
+	{
+		for (i = 0; i < num_total_book; i++)
+		{
+			if (compare(auth_name[i], user_search))
+			{
+				printf("number : %d // title : %s // author : %s // publisher : %s \n",
+					i, book_name[i], auth_name[i], publ_name[i]);
+			}
+		}
+
+	}
+	else if (user_input == 3)
+	{
+		for (i = 0; i < num_total_book; i++)
+		{
+			if (compare(publ_name[i], user_search))
+			{
+				printf("number : %d // title : %s // author : %s // publisher : %s \n",
+					i, book_name[i], auth_name[i], publ_name[i]);
+			}
+		}
+	}
+
+	return 0;
+}
+// a function which comparing with //
+char compare(char *str1, char *str2)
+{
+	while (*str1)
+	{
+		if (*str1 != *str2)
+		{
+			return 0;
+		}
+
+		str1++;
+		str2++;
+	}
+
+	if (*str2 == '\0')
+		return 1;
+
+	return 0;
+}
+// a function which borrowing a book//
+int borrow_book(int *borrowed)
+{
+	// variable from user//
+	int book_num;
+
+	printf("tell me the number of book \n");
+	printf("number : ");
+	scanf("%d", &book_num);
+
+	if (borrowed[book_num] == 1)
+	{
+		printf("already borrowed! \n");
+	}
+	else
+	{
+		printf("book is borrowed succesfully. \n");
+		borrowed[book_num] = 1;
+	}
+	return 0;
+}
+// a function which returning book//
+int return_book(int *borrowed)
+{
+	//number of the book//
+	int num_book;
+
+	printf("type the number of the nook \n");
+	printf("number : ");
+	scanf("%d", &num_book);
+
+	if (borrowed[num_book] == 0)
+	{
+		printf("already returned \n");
+	}
+	else
+	{
+		borrowed[num_book] = 0;
+		printf("successfully returned \n");
+	}
+	return 0;
+}

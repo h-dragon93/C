@@ -24,42 +24,32 @@ N이 주어졌을 때, N의 사이클의 길이를 구하는 프로그램을 작
 
 #include <stdio.h>
  
+#include <stdio.h>
+ 
 int main(void)
 {
-	int x,y;
+	int x,tmp;
 	int a, b;
 	int i=0;
-	int arr[1000];
+	
 
 	printf("put any number between 0~99 \n");
 	scanf("%d", &x);
-	
-	while (x >= 0 & x <= 99)
+	tmp = x;
+	while(1)
 	{
-		if (x < 10)
-		{
-			x = x * 10;
-		}
-		b= x % 10;
-		a = (x - b)/10;
 		
-		y = a + b;
-		arr[i] = b + y;
-		
-		x = arr[i];
-		i++;
+		b = x % 10;
+		a = x / 10; 
 
-		if (x = arr[0])
-		{
-			printf("%d, %d", i, arr[0]);
-			return 0;
-		}
-		
-	}
-	if (x<0 & x>100)
-	{
-		printf("number is out of range");
-	}
+		x = b*10 + ((a+b)%10);
+		i++; 
 
+		if (tmp == x)
+		{
+			printf("%d", i);
+			break;
+		}
+	} 
 	return 0;
 }
